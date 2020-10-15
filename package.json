@@ -1,0 +1,30 @@
+{
+  "name": "perfanalytics",
+  "version": "1.0.0",
+  "description": "Performance analytics api",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "data/*"
+    ]
+  },
+  "keywords": [
+    "Performance",
+    "Analytics"
+  ],
+  "author": "erdalstk@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "diskdb": "^0.1.17",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.5"
+  }
+}
