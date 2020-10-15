@@ -7,7 +7,7 @@ const ObjectId = require("mongodb").ObjectId;
 // config
 server.use(body_parser.json());
 
-const port = 4000;
+const port = process.env.PORT;
 
 // db setup
 const db = require("./db");

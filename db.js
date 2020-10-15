@@ -1,7 +1,6 @@
 const MongoClient = require("mongodb").MongoClient;
 
-const dbConnectionUrl =
-  "mongodb+srv://gS83x8jd9i0:gS83x8jd9i0@cluster0.gpxng.mongodb.net/<dbname>?retryWrites=true&w=majority";
+const dbConnectionUrl = process.env.DBURL;
 
 const options = {
   useNewUrlParser: true,
