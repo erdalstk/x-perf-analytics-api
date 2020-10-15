@@ -27,7 +27,11 @@ db.initialize(
 
     // POST
     server.post("/loadtimes", (request, response) => {
-      const item = request.body;
+      let item = request.body;
+
+      const timestamp = new Date();
+      item.time = timestamp;
+
       dbCollection.insertOne(item, (error, result) => {
         if (error) throw error;
         dbCollection.find().toArray((_error, _result) => {
