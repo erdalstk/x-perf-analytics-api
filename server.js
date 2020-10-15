@@ -30,7 +30,7 @@ db.initialize(
       let item = request.body;
 
       const timestamp = new Date();
-      item.time = timestamp;
+      item.datetime = timestamp;
 
       dbCollection.insertOne(item, (error, result) => {
         if (error) throw error;
