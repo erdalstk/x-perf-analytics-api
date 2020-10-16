@@ -25,7 +25,7 @@ db.initialize(
   function (dbCollection) {
 
     // POST
-    server.post("/loadtimes", (request, response) => {
+    server.post("/time", (request, response) => {
       let item = request.body;
 
       const toDate = new Date();
@@ -44,8 +44,9 @@ db.initialize(
     });
 
     // GET ALL
-    server.get("/loadtimes", (request, response) => {
+    server.post("/loadtimes", (request, response) => {
       const bodyData = request.body;
+      console.log('bodyData',bodyData);
       const bodyDataSize = Object.keys(bodyData).length;
 
       if(bodyDataSize === 0){
@@ -54,7 +55,7 @@ db.initialize(
           response.json(_result);
         });
       } else if(bodyDataSize > 0){
-        dbCollection.find({datetime : {$gte: new Date().getTime()-(60*60*1000) } } )
+        dbCollection.find({time : {$gte: new Date().getTime()-(bodyData.timeInterval*60*1000) } } )
       }
 
     });
