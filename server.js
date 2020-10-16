@@ -1,5 +1,6 @@
+require('dotenv').config();
 const express = require("express");
-var cors = require('cors');
+const cors = require('cors');
 
 const server = express();
 server.use(cors());
@@ -17,8 +18,6 @@ const db = require("./db");
 const dbName = "performance";
 const collectionName = "loadtimes";
 
-var allowlist = process.env.CORS_ALLOWED_LIST;
-
 // db init
 db.initialize(
   dbName,
@@ -29,8 +28,11 @@ db.initialize(
     server.post("/loadtimes", (request, response) => {
       let item = request.body;
 
-      const timestamp = new Date();
-      item.datetime = timestamp;
+      const toDate = new Date();
+      const datetime = toDate;
+      const timestamp = toDate.getTime();
+      item.datetime = datetime;
+      item.time = timestamp;
 
       dbCollection.insertOne(item, (error, result) => {
         if (error) throw error;
@@ -43,10 +45,18 @@ db.initialize(
 
     // GET ALL
     server.get("/loadtimes", (request, response) => {
-      dbCollection.find().toArray((_error, _result) => {
-        if (_error) throw _error;
-        response.json(_result);
-      });
+      const bodyData = request.body;
+      const bodyDataSize = Object.keys(bodyData).length;
+
+      if(bodyDataSize === 0){
+        dbCollection.find().toArray((_error, _result) => {
+          if (_error) throw _error;
+          response.json(_result);
+        });
+      } else if(bodyDataSize > 0){
+        dbCollection.find({datetime : {$gte: new Date().getTime()-(60*60*1000) } } )
+      }
+
     });
 
     // GET BY ID
