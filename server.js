@@ -46,7 +46,6 @@ db.initialize(
     // GET ALL
     server.post("/loadtimes", (request, response) => {
       const bodyData = request.body;
-      console.log('bodyData',bodyData);
       const bodyDataSize = Object.keys(bodyData).length;
 
       if(bodyDataSize === 0){
@@ -55,7 +54,10 @@ db.initialize(
           response.json(_result);
         });
       } else if(bodyDataSize > 0){
-        dbCollection.find({time : {$gte: new Date().getTime()-(bodyData.timeInterval*60*1000) } } )
+        dbCollection.find({time : {$gte: new Date().getTime()-(bodyData.timeInterval*60*1000) } } ).toArray((_error, _result) => {
+          if (_error) throw _error;
+          response.json(_result);
+        });
       }
 
     });
